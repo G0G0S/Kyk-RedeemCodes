@@ -1,4 +1,4 @@
-# Kyk-RedeemCodes
+# Kyk-RedeemCodes (Version Modificada por G0G0S)
 Simple resource for fivem for making codes that players can redeem and use to get rewards.
 This is my first public resource so it will probably be broken in some way. If you find any bugs/want to improve this resource you can either make a pull request/make a request in "Issues" or customise this resource to your liking.
 
