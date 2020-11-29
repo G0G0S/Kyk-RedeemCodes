@@ -1,6 +1,6 @@
 local oldPrint = print
 print = function(trash)
-	oldPrint('^7[^2Redeem Codes^7] '..trash..'^0')
+	oldPrint('^7[^2CODIGOS REGALO^7] '..trash..'^0')
 end
 
 ESX = nil 
@@ -31,7 +31,7 @@ function RandomCodeGenerator()
 	
 		return RandomCode
 	else
-		print("^1No valid generator method selected.")
+		print("^1No se seleccionó ningún método de generador válido.")
 	end
 	
 end
@@ -40,106 +40,112 @@ end
 --[[
 	Single code generation command
 ]]
-RegisterCommand("genCode", function(source, args, rawCommand)
+RegisterCommand("generarCodigo", function(source, args, rawCommand)
 	--[[ Check to prevent both config values being false ]]
 	if (Config.numericGenerator == false and Config.alphanumericGen == false) then
 		if (source ~= 0) then
-			TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "No valid generation method selected. Check if the config is setup correctly." }, color = 255,255,255 })
+			TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "No se seleccionó ningún método de generación válido. Compruebe si la configuración está configurada correctamente." }, color = 255,255,255 })
 		else
-			print("^1Please select a valid generation method from the config first.")
+			print("^1Primero seleccione un método de generación válido en la configuración.")
 		end
 	else
 		--[[ Check to prevent args[1] from being nil ]]
 		if (args[1] == nil) then
 			if (source == 0) then
-				print("Invalid type.\n[^2Redeem Codes^7] Current Types: Item, Bank, Cash, Weapon")
+				print("Tipo invalido.\n[^2CODIGOS REGALO^7] Tipos de recompensa: Item, Banco, Dinero, Arma")
 			else
-				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid type. Current Types: Item, Cash, Bank, Weapon" }, color = 255,255,255 })
+				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Tipo invalido. Tipos de recompensa: Item, Banco, Dinero, Arma" }, color = 255,255,255 })
 			end
 		--[[ Check to prevent args[2] from being nil ]]
 		elseif (args[1] ~= nil and args[2] == nil) then
-			if (args[1] == "bank" and args[2] == nil) then
+			if (args[1] == "banco" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: genCode bank 'reward_amount'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarCodigo banco 'reward_amount'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /genCode bank 'reward_amount'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarCodigo banco 'reward_amount'" }, color = 255,255,255 })
 				end
-			elseif (args[1] == "cash" and args[2] == nil) then
+			elseif (args[1] == "dinero" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: genCode cash 'reward_amount'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarCodigo dinero 'reward_amount'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /genCode cash 'reward_amount'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarCodigo dinero 'reward_amount'" }, color = 255,255,255 })
 				end
 			elseif (args[1] == "item" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: genCode item item_spawn_name' 'item count'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarCodigo item item_spawn_name' 'item count'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /genCode item 'item_spawn_name' 'item count'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarCodigo item 'item_spawn_name' 'item count'" }, color = 255,255,255 })
 				end
 			elseif (args[1] == "item_" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: genCode item_ item_spawn_name' 'item count'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarCodigo item_ item_spawn_name' 'item count'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /genCode item_ 'item_spawn_name' 'item count'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarCodigo item_ 'item_spawn_name' 'item count'" }, color = 255,255,255 })
 				end
-			elseif (args[1] == "weapon" and args[2] == nil) then
+			elseif (args[1] == "arma" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: genCode weapon 'weapon_spawn_name' 'ammo_count'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarCodigo arma 'weapon_spawn_name' 'ammo_count'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /genCode weapon 'weapon_spawn_name' 'ammo_count'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarCodigo arma 'weapon_spawn_name' 'ammo_count'" }, color = 255,255,255 })
 				end
 			else
 				if (source == 0) then
-					print("Unknown Type.\n[^2Redeem Codes^7] Current Types: Item, Weapon, Bank Cash")
+					print("Tipo Desconocido.\n[^2CODIGOS REGALO^7] Tipos de recompensa: Item, Banco, Dinero, Arma")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Unknown Type. Current Types: Current Types: Item, Weapon, Bank Cash" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Tipo Desconocido. Tipos de recompensa: Item, Banco, Dinero, Arma" }, color = 255,255,255 })
 				end
 			end
 		--[[ Bank reward code generation ]]
-		elseif (string.lower(args[1]) == "bank") then
-			MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1) VALUES (@code,@type,@data1)", {
+		elseif (string.lower(args[1]) == "banco") then
+			MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1) VALUES (@code,@type,@data1)", {
 				['@code'] = RandomCodeGenerator(),
-				['@type'] = "bank", 
+				['@type'] = "banco", 
 				['@data1'] = args[2]
 			})
 			if (source ~= 0) then
-				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code generated successfully! Check the database to see the code." }, color = 255,255,255 })
+				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "Codigo generado correctamente! Consulte la base de datos para ver el código o aqui tienes este: "..RandomCode }, color = 255,255,255 })
+				TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 			else
 				if RandomCode ~= nil and RandomCode ~= "" then
-					print("Code Generated Successfully! Code: "..RandomCode)
+					print("Codigo generado con exito! Codigo: "..RandomCode)
+					TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 				end
 			end
 			Wait(5)
 			RandomCode = ""
 		--[[ Cash reward code generation ]]
-		elseif (string.lower(args[1]) == "cash") then
-			MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1) VALUES (@code,@type,@data1)", {
+		elseif (string.lower(args[1]) == "dinero") then
+			MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1) VALUES (@code,@type,@data1)", {
 				['@code'] = RandomCodeGenerator(),
-				['@type'] = "cash", 
+				['@type'] = "dinero", 
 				['@data1'] = args[2]
 			})
 			if (source ~= 0) then
-				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code generated successfully! Check the database to see the code." }, color = 255,255,255 })
+				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "Codigo generado correctamente! Consulte la base de datos para ver el código o aqui tienes este: "..RandomCode }, color = 255,255,255 })
+				TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 			else
 				if RandomCode ~= nil and RandomCode ~= "" then
-					print("Code Generated Successfully! Code: "..RandomCode)
+					print("Codigo generado con exito! Codigo: "..RandomCode)
+					TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 				end
 			end
 			Wait(5)
 			RandomCode = ""
 		--[[ Weapon reward code generation ]]
-		elseif (string.lower(args[1]) == "weapon") then
-			MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
+		elseif (string.lower(args[1]) == "arma") then
+			MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
 				['@code'] = RandomCodeGenerator(),
-				['@type'] = "weapon", 
+				['@type'] = "arma", 
 				['@data1'] = "weapon_"..args[2],
 				['@data2'] = args[3]
 			})
 			if (source ~= 0) then
-				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code generated successfully! Check the database to see the code." }, color = 255,255,255 })
+				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "Codigo generado correctamente! Consulte la base de datos para ver el código o aqui tienes este: "..RandomCode }, color = 255,255,255 })
+				TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 			else
 				if RandomCode ~= nil and RandomCode ~= "" then
-					print("Code Generated Successfully! Code: "..RandomCode)
+					print("Codigo generado con exito! Codigo: "..RandomCode)
+					TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 				end
 			end
 			Wait(5)
@@ -151,29 +157,31 @@ RegisterCommand("genCode", function(source, args, rawCommand)
 			}, function(data2)
 				if (data2[1].name ~= string.lower(args[2])) then
 					if (source == 0) then
-						print("Invalid item")
+						print("Item invalido")
 					else
-						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid item." }, color = 255,255,255 })
+						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Item invalido." }, color = 255,255,255 })
 					end
 				else
 					if (args[2] == nil) then
 						if (source == 0) then
-							print("Invalid arguments")
+							print("Argumentos invalidos")
 						else
-							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments." }, color = 255,255,255 })
+							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos." }, color = 255,255,255 })
 						end
 					else
-						MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
+						MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
 							['@code'] = RandomCodeGenerator(),
 							['@type'] = "item",
 							['@data1'] = string.lower(args[2]),
 							['@data2'] = args[3]
 						})
 						if (source ~= 0) then
-							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code generated successfully! Check the database to see the code." }, color = 255,255,255 })
+							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "Codigo generado correctamente! Consulte la base de datos para ver el código o aqui tienes este: "..RandomCode }, color = 255,255,255 })
+							TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 						else
 							if RandomCode ~= nil and RandomCode ~= "" then
-								print("Code Generated Successfully! Code: "..RandomCode)
+								print("Codigo generado con exito! Codigo: "..RandomCode)
+								TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 							end
 						end
 						Wait(5)
@@ -187,22 +195,24 @@ RegisterCommand("genCode", function(source, args, rawCommand)
 			}, function(data2)
 				if (args[2] == nil) then
 					if (source == 0) then
-						print("Invalid arguments")
+						print("Argumentos invalidos")
 					else
-						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments." }, color = 255,255,255 })
+						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos." }, color = 255,255,255 })
 					end
 				else
-					MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
+					MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
 						['@code'] = RandomCodeGenerator(),
 						['@type'] = "item_",
 						['@data1'] = string.lower(args[2]), --[[ Data1: Item(s) name ]]
 						['@data2'] = args[3] --[[ Data2: Amount ]]
 					})
 					if (source ~= 0) then
-						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code generated successfully! Check the database to see the code." }, color = 255,255,255 })
+						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "Codigo generado correctamente! Consulte la base de datos para ver el código o aqui tienes este: "..RandomCode }, color = 255,255,255 })
+						TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 					else
 						if RandomCode ~= nil and RandomCode ~= "" then
-							print("Code Generated Successfully! Code: "..RandomCode)
+							print("Codigo generado con exito! Codigo: "..RandomCode)
+							TriggerEvent('G0_discord:enviarcodigo', RandomCode)
 						end
 					end
 					Wait(5)
@@ -217,136 +227,136 @@ end, true)
 --[[
 	Multiple code generation command
 ]]
-RegisterCommand("multiGen", function(source, args, rawCommand)
+RegisterCommand("generarVariosCodigos", function(source, args, rawCommand)
 	if (Config.numericGenerator == false and Config.alphanumericGen == false) then
-		print("^1Please select a valid generation method from the config first.")
+		print("^1Primero seleccione un método de generación válido de la configuración.")
 	else
 		--[[ Check to prevent args[1] from being nil ]]
 		if (args[1] == nil) then
 			if (source == 0) then
-				print("Invalid type.\n[^2Redeem Codes^7] Current Types: Item, Bank, Cash, Weapon")
+				print("Tipo invalido.\n[^2CODIGOS REGALO^7] Tipos de recompensa: Item, Banco, Dinero, Arma")
 			else
-				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid type. Current Types: Item, Cash, Bank, Weapon" }, color = 255,255,255 })
+				TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Tipo invalido. Tipos de recompensa: Item, Banco, Dinero, Arma" }, color = 255,255,255 })
 			end
 		--[[ Check to prevent args[2] from being nil ]]
 		elseif (args[1] ~= nil and args[2] == nil) then
-			if (args[1] == "bank" and args[2] == nil) then
+			if (args[1] == "banco" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: multiGen bank 'reward_amount'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarVariosCodigos banco 'reward_amount'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /multiGen bank 'reward_amount'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarVariosCodigos banco 'reward_amount'" }, color = 255,255,255 })
 				end
-			elseif (args[1] == "cash" and args[2] == nil) then
+			elseif (args[1] == "dinero" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: multiGen cash 'reward_amount'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarVariosCodigos dinero 'reward_amount'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /multiGen cash 'reward_amount'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarVariosCodigos dinero 'reward_amount'" }, color = 255,255,255 })
 				end
 			elseif (args[1] == "item" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: multiGen item item_spawn_name' 'item count'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarVariosCodigos item item_spawn_name' 'item count'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /genCode item 'item_spawn_name' 'item count'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarCodigo item 'item_spawn_name' 'item count'" }, color = 255,255,255 })
 				end
-			elseif (args[1] == "weapon" and args[2] == nil) then
+			elseif (args[1] == "arma" and args[2] == nil) then
 				if (source == 0) then
-					print("Invalid arguments.\n[^2Redeem Codes^7] Usage: multiGen weapon 'weapon_spawn_name' 'ammo_count'")
+					print("Argumentos invalidos.\n[^2CODIGOS REGALO^7] Usa: generarVariosCodigos arma 'weapon_spawn_name' 'ammo_count'")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments. Usage: /multiGen weapon 'weapon_spawn_name' 'ammo_count'" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos. Usa: /generarVariosCodigos arma 'weapon_spawn_name' 'ammo_count'" }, color = 255,255,255 })
 				end
 			else
 				if (source == 0) then
-					print("Unknown Type.\n[^2Redeem Codes^7] Current Types: Item, Weapon, Bank Cash")
+					print("Tipo Desconocido.\n[^2CODIGOS REGALO^7] Tipos de recompensa: Item, Banco, Dinero, Arma")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Unknown Type. Current Types: Current Types: Item, Weapon, Bank Cash" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Tipo Desconocido. Tipos de recompensa: Item, Banco, Dinero, Arma" }, color = 255,255,255 })
 				end
 			end
-		elseif (string.lower(args[1]) == "bank") then
+		elseif (string.lower(args[1]) == "banco") then
 			if (args[3] == nil) then args[3] = 0 end --[[ I have no clue why 0 == 1, 1 == 2 but hey whatever.]]
 			if (tonumber(args[3]) < 21) then
 				for shit=0, args[3]-1 do
-					MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1) VALUES (@code,@type,@data1)", {
+					MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1) VALUES (@code,@type,@data1)", {
 						['@code'] = RandomCodeGenerator(),
-						['@type'] = "bank", 
+						['@type'] = "banco", 
 						['@data1'] = args[2]
 					})
 					if (source == 0) then
-						print("Code Generated Successfully! Code: "..RandomCode)
+						print("Codigo generado con exito! Codigo: "..RandomCode)
 					end
 					RandomCode = ""
 				end
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Codes generated successfully! Check the database to see the codes." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Códigos generados con éxito! Consulte la base de datos para ver los códigos." }, color = 255,255,255 })
 				else
-					print("Codes Generated Successfully!")
+					print("¡Códigos generados con éxito!")
 				end
 			else
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Chill. Lets not crash the database." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Frío. No bloqueemos la base de datos." }, color = 255,255,255 })
 				else
-					print("Chill. Lets not crash the database.")
+					print("Frío. No bloqueemos la base de datos.")
 				end
 			end
-		elseif (string.lower(args[1]) == "weapon") then
+		elseif (string.lower(args[1]) == "arma") then
 			if (args[2] == nil or args[3] == nil) then
 				if (source == 0) then
-					print("Invalid arguments")
+					print("Argumentos invalidos")
 				else
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Arguments." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Argumentos invalidos." }, color = 255,255,255 })
 				end
 			else
 				if (tonumber(args[3]) < 21) then
 					for shit=0, args[4]-1 do
-						MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
+						MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
 							['@code'] = RandomCodeGenerator(),
-							['@type'] = "weapon", 
+							['@type'] = "arma", 
 							['@data1'] = "weapon_"..args[2],
 							['@data2'] = args[3]
 
 						})
 						Wait(5)
 						if (source == 0) then
-							print("Code Generated Successfully! Code: "..RandomCode)
+							print("Codigo generado con exito! Codigo: "..RandomCode)
 						end
 						RandomCode = ""
 					end
 					if (source ~= 0) then
-						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Codes generated successfully! Check the database to see the code." }, color = 255,255,255 })
+						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Códigos generados con éxito! Consulte la base de datos para ver el código." }, color = 255,255,255 })
 					else
-						print("Codes Generated Successfully!")
+						print("¡Códigos generados con éxito!")
 					end
 				else
 					if (source ~= 0) then
-						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Chill. Lets not crash the database." }, color = 255,255,255 })
+						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Frío. No bloqueemos la base de datos." }, color = 255,255,255 })
 					else
-						print("Chill. Lets not crash the database.")
+						print("Frío. No bloqueemos la base de datos.")
 					end
 				end
 			end
-		elseif (string.lower(args[1]) == "cash") then
+		elseif (string.lower(args[1]) == "dinero") then
 			if (args[3] == nil) then args[3] = 0 end --[[ I have no clue why 0 == 1, 1 == 2 but hey whatever.]]
 			if (tonumber(args[3]) < 21) then
 				for shit=0, args[3]-1 do
-					MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1) VALUES (@code,@type,@data1)", {
+					MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1) VALUES (@code,@type,@data1)", {
 						['@code'] = RandomCodeGenerator(),
-						['@type'] = "cash", 
+						['@type'] = "dinero", 
 						['@data1'] = args[2]
 					})
 					if (source == 0) then
-						print("Code Generated Successfully! Code: "..RandomCode)
+						print("Codigo generado con exito! Codigo: "..RandomCode)
 					end
 					RandomCode = ""
 				end
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Codes generated successfully! Check the database to see the codes." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Códigos generados con éxito! Consulte la base de datos para ver los códigos." }, color = 255,255,255 })
 				else
-					print("Codes Generated Successfully!")
+					print("¡Códigos generados con éxito!")
 				end
 			else
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Chill. Lets not crash the database." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Frío. No bloqueemos la base de datos." }, color = 255,255,255 })
 				else
-					print("Chill. Lets not crash the database.")
+					print("Frío. No bloqueemos la base de datos.")
 				end
 			end
 		elseif (string.lower(args[1]) == "item") then
@@ -354,33 +364,33 @@ RegisterCommand("multiGen", function(source, args, rawCommand)
 			if (args[4] == nil) then args[4] = 0 end --[[ I have no clue why 0 == 1, 1 == 2 but hey whatever.]]
 			if (tonumber(args[4]) < 21) then
 				for shit=0, args[4]-1 do
-					MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
+					MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
 						['@code'] = RandomCodeGenerator(),
 						['@type'] = "item", 
 						['@data1'] = args[2],
 						['@data2'] = args[3]
 					})
 					if (source == 0) then
-						print("Code Generated Successfully! Code: "..RandomCode)
+						print("Codigo generado con exito! Codigo: "..RandomCode)
 					end
 					RandomCode = ""
 				end
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Codes generated successfully! Check the database to see the codes." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Códigos generados con éxito! Consulte la base de datos para ver los códigos." }, color = 255,255,255 })
 				else
-					print("Codes Generated Successfully!")
+					print("¡Códigos generados con éxito!")
 				end
 			else
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Chill. Lets not crash the database." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Frío. No bloqueemos la base de datos." }, color = 255,255,255 })
 				else
-					print("Chill. Lets not crash the database.")
+					print("Frío. No bloqueemos la base de datos.")
 				end
 			end
 		elseif (string.lower(args[1]) == "item_") then
 			if (tonumber(args[4]) < 21) then
 				for shit=0, args[4]-1 do
-					MySQL.Async.execute("INSERT INTO RedeemCodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
+					MySQL.Async.execute("INSERT INTO redeemcodes (code, type, data1, data2) VALUES (@code,@type,@data1,@data2)", {
 						['@code'] = RandomCodeGenerator(),
 						['@type'] = "item_",
 						['@data1'] = string.lower(args[2]), --[[ Data1: Item(s) name ]]
@@ -388,20 +398,20 @@ RegisterCommand("multiGen", function(source, args, rawCommand)
 					})
 					if (source == 0) then
 						if RandomCode ~= nil and RandomCode ~= "" then
-							print("Code Generated Successfully! Code: "..RandomCode)
+							print("Codigo generado con exito! Codigo: "..RandomCode)
 						end
 					end
 					Wait(5)
 					RandomCode = ""
 				end
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Codes generated successfully! Check the database to see the codes." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Códigos generados con éxito! Consulte la base de datos para ver los códigos." }, color = 255,255,255 })
 				end
 			else
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Chill. Lets not crash the database." }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "Frío. No bloqueemos la base de datos." }, color = 255,255,255 })
 				else
-					print("Chill. Lets not crash the database.")
+					print("Frío. No bloqueemos la base de datos.")
 				end
 			end
 		end
@@ -411,60 +421,60 @@ end, true)
 --[[
 	Redeem Command
 ]]
-RegisterCommand("redeem", function(source, args, rawCommand)
+RegisterCommand("canjear", function(source, args, rawCommand)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	if (args[1] == nil) then 
 		if (source ~= 0) then
-			TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Code cannot be empty!" }, color = 255,255,255 })
+			TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "¡El código no puede estar vacío!" }, color = 255,255,255 })
 		else
-			print("Code cannot be empty!")
+			print("¡El código no puede estar vacío!")
 		end
 	elseif (source == 0) then
-		print("You cant redeem codes as console!")
+		print("¡No puedes canjear códigos desde consola!")
 	else
-    	MySQL.Async.fetchAll('SELECT * FROM `RedeemCodes` WHERE `code` = @code', {
+    	MySQL.Async.fetchAll('SELECT * FROM `redeemcodes` WHERE `code` = @code', {
 				['@code'] = args[1]
 		}, function(data)
 			if (json.encode(data) == "[]" or json.encode(data) == "null") then
 				if (source ~= 0) then
-					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Code!" }, color = 255,255,255 })
+					TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "¡Codigo invalido!" }, color = 255,255,255 })
 				else
-					print("You cant redeem codes as console + Invalid Code")
+					print("No puedes canjear códigos como consola + Código no válido")
 				end
 			else
 				if (args[1] == data[1].code) then
 					if (source ~= 0) then
-						if (data[1].type == "bank") then
-							MySQL.Async.execute("DELETE FROM RedeemCodes WHERE code = @code;", {
+						if (data[1].type == "banco") then
+							MySQL.Async.execute("DELETE FROM redeemcodes WHERE code = @code;", {
 								['@code'] = args[1],
 							})
 							xPlayer.addAccountMoney('bank', tonumber(data[1].data1))
-							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code redeemed successfully! You just recieved: $"..data[1].data1.." Bank." }, color = 255,255,255 })
+							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Código canjeado con éxito! Acabas de recibir: $"..data[1].data1.." Banco." }, color = 255,255,255 })
 							if Config.globalAnnouncements then
-								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2Reward Codes^7]', "^1"..GetPlayerName(source).." ^7Just redeemed a reward code and recieved: ^1$"..data[1].data1 }, color = 255,255,255 })
+								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2CODIGOS REGALO^7]', "^1"..GetPlayerName(source).." ^7Acaba de canjear un CODIGO REGALO y recibió: ^1$"..data[1].data1 }, color = 255,255,255 })
 							end
-						elseif (data[1].type == "cash") then
-							MySQL.Async.execute("DELETE FROM RedeemCodes WHERE code = @code;", {
+						elseif (data[1].type == "dinero") then
+							MySQL.Async.execute("DELETE FROM redeemcodes WHERE code = @code;", {
 								['@code'] = args[1],
 							})
 							xPlayer.addMoney(data[1].data1)
-							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code redeemed successfully! You just recieved: $"..data[1].data1.." Cash." }, color = 255,255,255 })
+							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Código canjeado con éxito! Acabas de recibir: $"..data[1].data1.." Dinero." }, color = 255,255,255 })
 							if Config.globalAnnouncements then
-								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2Reward Codes^7]', "^1"..GetPlayerName(source).." ^7Just redeemed a reward code and recieved: ^1$"..data[1].data1 }, color = 255,255,255 })
+								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2CODIGOS REGALO^7]', "^1"..GetPlayerName(source).." ^7Acaba de canjear un CODIGO REGALO y recibió: ^1$"..data[1].data1 }, color = 255,255,255 })
 							end
 						elseif (data[1].type == "item") then
-							MySQL.Async.execute("DELETE FROM RedeemCodes WHERE code = @code;", {
+							MySQL.Async.execute("DELETE FROM redeemcodes WHERE code = @code;", {
 								['@code'] = args[1],
 							})
 							xPlayer.addInventoryItem(data[1].data1, data[1].data2)
-							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code redeemed successfully! You just recieved: "..data[1].data1.." of "..data[1].data2.."." }, color = 255,255,255 })
+							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Código canjeado con éxito! Acabas de recibir: "..data[1].data1.." de "..data[1].data2.."." }, color = 255,255,255 })
 							if Config.globalAnnouncements then
-								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2Reward Codes^7]', "^1"..GetPlayerName(source).." ^7Just redeemed a reward code and recieved: ^1"..data[1].data2.."x "..data[1].data1 }, color = 255,255,255 })
+								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2CODIGOS REGALO^7]', "^1"..GetPlayerName(source).." ^7Acaba de canjear un CODIGO REGALO y recibió: ^1"..data[1].data2.."x "..data[1].data1 }, color = 255,255,255 })
 							end
 						elseif (data[1].type == "item_") then
 							--[[ Deletes the code from database ]]
-							MySQL.Async.execute("DELETE FROM RedeemCodes WHERE code = @code;", {
+							MySQL.Async.execute("DELETE FROM redeemcodes WHERE code = @code;", {
 								['@code'] = args[1],
 							})
 							--[[ Makes sure to give every mentioned item to the player ]]
@@ -478,35 +488,35 @@ RegisterCommand("redeem", function(source, args, rawCommand)
 								table.insert(ch, substring)
 							end
 							--[[ Redeemer Message ]]
-							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code redeemed successfully! You just recieved: "..data[1].data1.." of "..data[1].data2.."." }, color = 255,255,255 })
+							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Código canjeado con éxito! Acabas de recibir: "..data[1].data1.." de "..data[1].data2.."." }, color = 255,255,255 })
 							--[[ Check if global announcements are on if they are then announce the rewards globally ]]
 							if Config.globalAnnouncements then
-								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2Reward Codes^7]', "^1"..GetPlayerName(source).." ^7Just redeemed a reward code and recieved: ^1"..data[1].data2.."x of "..table.concat(ch, ", ") }, color = 255,255,255 })
+								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2CODIGOS REGALO^7]', "^1"..GetPlayerName(source).." ^7Acaba de canjear un CODIGO REGALO y recibió: ^1"..data[1].data2.."x de "..table.concat(ch, ", ") }, color = 255,255,255 })
 							end
-						elseif (data[1].type == "weapon") then
-							MySQL.Async.execute("DELETE FROM RedeemCodes WHERE code = @code;", {
+						elseif (data[1].type == "arma") then
+							MySQL.Async.execute("DELETE FROM redeemcodes WHERE code = @code;", {
 								['@code'] = args[1],
 							})
 							xPlayer.addWeapon(tostring(data[1].data1), data[1].data2)
-							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code redeemed successfully! You just recieved: "..data[1].data1.." with "..data[1].data2.." Bullets." }, color = 255,255,255 })
+							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "¡Código canjeado con éxito! Acabas de recibir: "..data[1].data1.." con "..data[1].data2.." balas." }, color = 255,255,255 })
 							if Config.globalAnnouncements then
-								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2Reward Codes^7]', "^1"..GetPlayerName(source).." ^7Just redeemed a reward code and recieved a ^1"..string.upper(string.gsub(data[1].data1, "weapon_", "")) }, color = 255,255,255 })
+								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2CODIGOS REGALO^7]', "^1"..GetPlayerName(source).." ^7Acaba de canjear un CODIGO REGALO y recibió un ^1"..string.upper(string.gsub(data[1].data1, "weapon_", "")) }, color = 255,255,255 })
 							end
 						else
-							MySQL.Async.execute("DELETE FROM RedeemCodes WHERE code = @code;", {
+							MySQL.Async.execute("DELETE FROM redeemcodes WHERE code = @code;", {
 								['@code'] = args[1],
 							})
-							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2Success^7]^2', "Code redeemed successfully! Reward: Unknown" }, color = 255,255,255 })
+							TriggerClientEvent('chat:addMessage', source, { args = { '^7[^2EXITO^7]^2', "Code redeemed successfully! Reward: Unknown" }, color = 255,255,255 })
 							if Config.globalAnnouncements then
-								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2Reward Codes^7]', "^1"..GetPlayerName(source).." ^7Just redeemed a reward code and recieved an unknown reward" }, color = 255,255,255 })
+								TriggerClientEvent('chat:addMessage', -1, { args = { '^7[^2CODIGOS REGALO^7]', "^1"..GetPlayerName(source).." ^7Acaba de canjear un CODIGO REGALO y recibió unn unknown reward" }, color = 255,255,255 })
 							end
 						end
 					end
 				else
 					if (source ~= 0) then
-						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1Error^7]^2', "Invalid Code!" }, color = 255,255,255 })
+						TriggerClientEvent('chat:addMessage', source, { args = { '^7[^1ERROR^7]^2', "¡Codigo invalido!" }, color = 255,255,255 })
 					else
-						print("Invalid Code + You can't redeem codes as console.")
+						print("Código no válido + No puedes canjear códigos como consola.")
 					end
 				end
 			end
