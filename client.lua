@@ -1,24 +1,24 @@
 AddEventHandler('onClientResourceStart', function (resourceName)
     if (GetCurrentResourceName() == resourceName) then
-        TriggerEvent('chat:addSuggestion', '/multiGen', 'Generate multiple codes at once', {
-            { name="type", help="What code you want to generate. For example: money" },
-            { name="amount", help="How much (in this case money) will the player be rewarded. For example: 200" },
-            { name="count", help="How many keys you want to generate. For Example: 20" }
+        TriggerEvent('chat:addSuggestion', '/generarVariosCodigos', 'Genera varios CODIGOS REGALO a la vez.', {
+            { name="type", help="Qué CODIGO REGALO quieres generar. Por ejemplo: Dinero." },
+            { name="amount", help="Cuánto (en este caso dinero) será recompensado el jugador. Por ejemplo: 200." },
+            { name="count", help="Cuántos CODIGOS REGALO quieres generar. Por ejemplo: 20." }
         })
-        TriggerEvent('chat:addSuggestion', '/genCode', 'Generate a reward code', {
-            { name="type", help="What code you want to generate. For example: money" },
-            { name="amount", help="How much (in this case money) will the player be rewarded. For example: 200" }
+        TriggerEvent('chat:addSuggestion', '/generarCodigo', 'Genera un CODIGO REGALO.', {
+            { name="type", help="Qué CODIGO REGALO quieres generar. Por ejemplo: Dinero." },
+            { name="amount", help="Cuánto (en este caso dinero) será recompensado el jugador. Por ejemplo: 200." }
         })
-        TriggerEvent('chat:addSuggestion', '/redeem', 'Redeem a reward code', {
-            { name="code", help="Enter the code you want to redeem." }
+        TriggerEvent('chat:addSuggestion', '/canjear', 'Canjear un CODIGO REGALO.', {
+            { name="code", help="Ingrese el CODIGO REGALO que desea canjear." }
         })
     end
 end)
 
 AddEventHandler('onClientResourceStop', function(resourceName)
     if (GetCurrentResourceName() == resourceName) then
-        TriggerEvent('chat:removeSuggestion', '/genCode')
-        TriggerEvent('chat:removeSuggestion', '/multiGen')
-        TriggerEvent('chat:removeSuggestion', '/redeem')
+        TriggerEvent('chat:removeSuggestion', '/generarCodigo')
+        TriggerEvent('chat:removeSuggestion', '/generarVariosCodigos')
+        TriggerEvent('chat:removeSuggestion', '/canjear')
     end
 end)
